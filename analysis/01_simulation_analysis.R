@@ -52,6 +52,12 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data <- bind_rows(data,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnc"))
+
 # Calculate means and sd's
 data_sum <- data %>% group_by(time, real_time, exposure) %>% 
   summarise(p_mean = mean(P_pv_local),
@@ -91,6 +97,12 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data <- bind_rows(data,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnc"))
 
 # Get a single time point
 data_t1 <- data %>% filter(real_time == 1, exposure %in% c(300,450,600))  %>%
@@ -165,6 +177,13 @@ data_sum <- data %>% filter(celltype == 1) %>%
   group_by(exposure, time, real_time) %>%
   summarize(Pin_mean = mean(mean),
             Pin_sd = sd(mean))
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_sum,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_sum,class)
+# Load this data
+#data_sum <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("fnnnn"))
 
 ggplot(data_sum %>% filter(real_time<50 & real_time>-1, !exposure %in% c(0)),aes(x = real_time, y= Pin_mean, color = exposure)) +
   geom_line() +
@@ -269,6 +288,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data <- bind_rows(data,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnnnc"))
+
 # Get percentages
 data_perc <- data %>% group_by(real_time, time, exposure, run) %>% 
   mutate(total = oxidation_total+gluc_total+sulf_total,
@@ -336,6 +362,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data <- bind_rows(data,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data <- data %>% dplyr::rename(necrotic = "necrotic_total",
@@ -488,6 +521,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data <- bind_rows(data,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data <- data %>% dplyr::rename(necrotic = "necrotic_total",
@@ -700,6 +740,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_nozon <- bind_rows(data_nozon,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_nozon,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_nozon,class)
+# Load this data
+#data_nozon <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_nozon <- data_nozon %>% dplyr::rename(necrotic = "necrotic_total",
                                            healthy = "hepatocytes_total",
@@ -765,6 +812,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_nozongsh <- bind_rows(data_nozongsh,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_nozongsh,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_nozongsh,class)
+# Load this data
+#data_nozongsh <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_nozongsh <- data_nozongsh %>% dplyr::rename(necrotic = "necrotic_total",
@@ -861,6 +915,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_nozonp450 <- bind_rows(data_nozonp450,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_nozonp450,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_nozonp450,class)
+# Load this data
+#data_nozonp450 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_nozonp450 <- data_nozonp450 %>% dplyr::rename(necrotic = "necrotic_total",
@@ -1260,6 +1321,13 @@ data_sum <- data %>% filter(celltype %in% c(1,6)) %>%
             mean_mdm2 = mean(m_mdm2),
             sd_mdm2 = sd(m_mdm2))
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_sum,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_sum,class)
+# Load this data
+#data_sum <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("fnnnnnnnnnnnn"))
+
 # # Intracellular concentrations
 # file.name <- "DDR.csv"
 # file.path <- paste0(model_dir,"data/",simu_dirs[1],"/",file.name,".gz")
@@ -1361,6 +1429,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data <- bind_rows(data,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data <- data %>% dplyr::rename(necrotic = "necrotic_total",
                                healthy = "hepatocytes_total",
@@ -1439,6 +1514,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data <- bind_rows(data,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnncin"))
+
 labels <- c(
   "0.01" = "r = 0.01",
   "0.1"="r = 0.1",
@@ -1490,6 +1572,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data <- bind_rows(data,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data <- data %>% dplyr::rename(necrotic = "necrotic_total",
@@ -1589,6 +1678,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data <- bind_rows(data,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data,class)
+# Load this data
+#data <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data <- data %>% dplyr::rename(necrotic = "necrotic_total",
@@ -1695,6 +1791,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_k_inhib <- bind_rows(data_k_inhib,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_k_inhib,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_k_inhib,class)
+# Load this data
+#data_k_inhib <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_k_inhib <- data_k_inhib %>% dplyr::rename(necrotic = "necrotic_total",
                                                total = "hepatocytes_total",
@@ -1749,6 +1852,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_k_stim <- bind_rows(data_k_stim,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_k_stim,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_k_stim,class)
+# Load this data
+#data_k_stim <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_k_stim <- data_k_stim %>% dplyr::rename(necrotic = "necrotic_total",
@@ -1805,6 +1915,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_k_mitogen <- bind_rows(data_k_mitogen,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_k_mitogen,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_k_mitogen,class)
+# Load this data
+#data_k_mitogen <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_k_mitogen <- data_k_mitogen %>% dplyr::rename(necrotic = "necrotic_total",
                                                    total = "hepatocytes_total",
@@ -1860,6 +1977,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_k_inhib_2 <- bind_rows(data_k_inhib_2,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_k_inhib_2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_k_inhib_2,class)
+# Load this data
+#data_k_inhib_2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_k_inhib_2 <- data_k_inhib_2 %>% dplyr::rename(necrotic = "necrotic_total",
                                                    total = "hepatocytes_total",
@@ -1914,6 +2038,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_k_stim_2 <- bind_rows(data_k_stim_2,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_k_stim_2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_k_stim_2,class)
+# Load this data
+#data_k_stim_2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_k_stim_2 <- data_k_stim_2 %>% dplyr::rename(necrotic = "necrotic_total",
                                                  total = "hepatocytes_total",
@@ -1967,6 +2098,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_k_mitogen_2 <- bind_rows(data_k_mitogen_2,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_k_mitogen_2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_k_mitogen_2,class)
+# Load this data
+#data_k_mitogen_2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_k_mitogen_2 <- data_k_mitogen_2 %>% dplyr::rename(necrotic = "necrotic_total",
@@ -2117,6 +2255,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   prol_k_inhib <- bind_rows(prol_k_inhib,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(prol_k_inhib,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(prol_k_inhib,class)
+# Load this data
+#prol_k_inhib <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("ncn"))
+
 sum_prol_k_inhib <- prol_k_inhib %>% group_by(r) %>% 
   # summarise(mean_count_proliferated = mean(proliferated),
   #           sd_count_proliferated = sd(proliferated)) %>% 
@@ -2191,6 +2336,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   }
   prol_k_stim <- bind_rows(prol_k_stim,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(prol_k_stim,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(prol_k_stim,class)
+# Load this data
+#prol_k_stim <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nci"))
 
 sum_prol_k_stim <- prol_k_stim %>% group_by(r) %>% 
   # summarise(mean_count_proliferated = mean(proliferated),
@@ -2267,6 +2419,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   prol_k_mitogen <- bind_rows(prol_k_mitogen,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(prol_k_mitogen,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(prol_k_mitogen,class)
+# Load this data
+#prol_k_mitogen <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnc"))
+
 sum_prol_k_mitogen <- prol_k_mitogen %>% group_by(r) %>% 
   # summarise(mean_count_proliferated = mean(proliferated),
   #           sd_count_proliferated = sd(proliferated)) %>% 
@@ -2341,6 +2500,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   }
   prol_k_inhib_2 <- bind_rows(prol_k_inhib_2,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(prol_k_inhib_2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(prol_k_inhib_2,class)
+# Load this data
+#prol_k_inhib_2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnc"))
 
 sum_prol_k_inhib_2 <- prol_k_inhib_2 %>% group_by(r) %>% 
   # summarise(mean_count_proliferated = mean(proliferated),
@@ -2417,6 +2583,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   prol_k_stim_2 <- bind_rows(prol_k_stim_2,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(prol_k_stim_2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(prol_k_stim_2,class)
+# Load this data
+#prol_k_stim_2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nci"))
+
 sum_prol_k_stim_2 <- prol_k_stim_2 %>% group_by(r) %>% 
   # summarise(mean_count_proliferated = mean(proliferated),
   #           sd_count_proliferated = sd(proliferated)) %>% 
@@ -2491,6 +2664,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   prol_k_mitogen_2 <- bind_rows(prol_k_mitogen_2,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(prol_k_mitogen_2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(prol_k_mitogen_2,class)
+# Load this data
+#prol_k_mitogen_2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnc"))
+
 sum_prol_k_mitogen_2 <- prol_k_mitogen_2 %>% group_by(r) %>% 
   # summarise(mean_count_proliferated = mean(proliferated),
   #           sd_count_proliferated = sd(proliferated)) %>% 
@@ -2555,6 +2735,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_control <- bind_rows(data_control,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_control,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_control,class)
+# Load this data
+#data_control <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_control <- data_control %>% dplyr::rename(necrotic = "necrotic_total",
                                                healthy = "hepatocytes_total",
@@ -2613,6 +2800,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_NAC <- bind_rows(data_NAC,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_NAC,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_NAC,class)
+# Load this data
+#data_NAC <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # NAC part 2 #
 
 # get directory names
@@ -2646,6 +2840,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_NAC_p2 <- bind_rows(data_NAC_p2,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_NAC_p2,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_NAC_p2,class)
+# Load this data
+#data_NAC_p2 <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 data_NAC <- bind_rows(data_NAC, data_NAC_p2)
 
@@ -2812,6 +3013,13 @@ data_sum <- data %>% filter(celltype == 1) %>%
   summarize(G_mean = mean(mean),
             G_sd = sd(mean))
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_sum,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_sum,class)
+# Load this data
+#data_sum <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("fnnnn"))
+
 ggplot(data_sum %>% filter(real_time >= 0 & real_time <= 100),
        aes(x = real_time, y= G_mean, color = trtmt)) +
   geom_line() +
@@ -2859,6 +3067,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_4MP <- bind_rows(data_4MP,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_4MP,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_4MP,class)
+# Load this data
+#data_4MP <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnc"))
 
 # Rename columns
 data_4MP <- data_4MP %>% dplyr::rename(necrotic = "necrotic_total",
@@ -2967,6 +3182,13 @@ data_sum <- data %>% filter(celltype == 1) %>%
   summarize(C_mean = mean(mean),
             C_sd = sd(mean))
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_sum,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_sum,class)
+# Load this data
+#data_sum <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("fnnnn"))
+
 ggplot(data_sum %>% filter(real_time >= 0 & real_time <= 100),
        aes(x = real_time, y= C_mean, color = trtmt)) +
   geom_line() +
@@ -3013,6 +3235,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_p53inh <- bind_rows(data_p53inh,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_p53inh,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_p53inh,class)
+# Load this data
+#data_p53inh <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnc"))
 
 # Rename columns
 data_p53inh <- data_p53inh %>% dplyr::rename(necrotic = "necrotic_total",
@@ -3139,6 +3368,13 @@ data_sum <-  data_sum1  %>% group_by(trtmt, time, real_time) %>%
             MDM2_mean = mean(mean_MDM2),
             MDM2_sd = sd(mean_MDM2))
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_sum,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_sum,class)
+# Load this data
+#data_sum <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("fnnnnnnnnnnnn"))
+
 # Check out variability between single cells
 tmp <- data %>% filter(run == 1, trtmt == 48, celltype == 1, cell.id %in% sample(0:600,20))
 ggplot(tmp,
@@ -3256,6 +3492,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_cdn <- bind_rows(data_cdn,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_cdn,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_cdn,class)
+# Load this data
+#data_cdn <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_cdn <- data_cdn %>% dplyr::rename(necrotic = "necrotic_total",
@@ -3389,6 +3632,13 @@ data_sum <- data %>% filter(celltype == 1) %>%
             MDM2_mean = mean(mean_MDM2),
             MDM2_sd = sd(mean_MDM2))
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_sum,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_sum,class)
+# Load this data
+#data_sum <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("fnnnnnnnnnnnn"))
+
 ggplot(data_sum %>% filter(real_time >= 0 & real_time <= 100),
        aes(x = real_time, y= p21_mean, color = trtmt)) +
   geom_line() +
@@ -3437,6 +3687,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_NecProb <- bind_rows(data_NecProb,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_NecProb,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_NecProb,class)
+# Load this data
+#data_NecProb <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_NecProb <- data_NecProb %>% dplyr::rename(necrotic = "necrotic_total",
@@ -3515,6 +3772,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_DAMPdeg <- bind_rows(data_DAMPdeg,data_tmp)
 }
 
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_DAMPdeg,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_DAMPdeg,class)
+# Load this data
+#data_DAMPdeg <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
+
 # Rename columns
 data_DAMPdeg <- data_DAMPdeg %>% dplyr::rename(necrotic = "necrotic_total",
                                                healthy = "hepatocytes_total",
@@ -3590,6 +3854,13 @@ for (d in simu_dirs[2:length(simu_dirs)]) {
   data_tmp$run <- sub('.', '', regmatches(d,regexpr("-[0-9]{1,3}",d)))
   data_MCP1deg <- bind_rows(data_MCP1deg,data_tmp)
 }
+
+# Save the data for GitHub
+if (!dir.exists(paste0("Data/",model_dir))) {dir.create(paste0("Data/",model_dir))}
+write_csv(data_MCP1deg,path = paste0("Data/",model_dir,"/all_",file.name))
+sapply(data_MCP1deg,class)
+# Load this data
+#data_MCP1deg <- read_csv(paste0("Data/",model_dir,"/all_",file.name), col_types = c("nnnnnnnnc"))
 
 # Rename columns
 data_MCP1deg <- data_MCP1deg %>% dplyr::rename(necrotic = "necrotic_total",
